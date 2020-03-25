@@ -1,0 +1,13 @@
+<form action="/register" method="post">
+    <label for="name">nickName</label>
+    <input required name="nickName" id="name" type="text" aria-describedby="name" value="{{nickName}}"
+        placeholder="Enter nickName">
+    <label for="email">Email address</label>
+    <input required name="email" id="email" type="email" aria-describedby="email" value="{{email}}"
+        placeholder="Enter email">
+    <label for="password">Password</label>
+    <input required name="password" id="password" type="password" placeholder="Password">
+    <label for="confirmPassword">Confirm password</label>
+    <input required name="passwordConfirm" id="confirmPassword" type="password" placeholder="Confirm password">
+    <button type="submit">Register</button>
+</form>

@@ -1,0 +1,27 @@
+<h2>post list</h2>
+<table>
+  <thead>
+    <tr>
+      <th>photo</th>
+      <th>title</th>
+      <th>allowComments</th>
+      <th>short</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each posts}}
+    <tr>
+      <td><img style="height:45px;" src="/uploads/{{file}}" alt=""></td>
+      <td>{{title}}</td>
+      <td>{{allowComments}}</td>
+      <td>{{short}}</td>
+      <td><a href="/admin/posts/edit/{{id}}">edit</a></td>
+      <td>
+        <form action="/admin/posts/{{id}}?_method=DELETE" method="post">
+          <button type="submit">delete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

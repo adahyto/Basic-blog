@@ -1,0 +1,15 @@
+{{#each posts}}
+<article>
+  <img style="width:155px;" src="/uploads/{{file}}" alt="">
+  <h3>{{title}}</h3>
+  <p>{{short}}</p>
+  <a href="/post/{{slug}}">Show More &rarr;</a>
+  <i>
+    Posted on {{generateDate date 'MMMM Do YYYY'}} by
+    <a href="#">{{user.nickName}}</a>
+  </i>
+</article>
+{{/each}}
+<ul>
+  {{#paginate current=current pages=pages}}{{/paginate}}
+</ul>

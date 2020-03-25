@@ -1,0 +1,21 @@
+<header>
+  <h1>
+    <a href="/">Blog</a>
+  </h1>
+</header>
+<nav>
+  <ul>
+    <li>
+      <a href="/about">About</a>
+    </li>
+    {{#if user}}
+    <li>
+      <a href="/admin">Admin
+      </a>
+    </li>
+    <li>
+      <a href="/logout">Log out</a>
+    </li>
+    {{/if}}
+  </ul>
+</nav>

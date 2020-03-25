@@ -1,0 +1,30 @@
+<h2>Comments</h2>
+<table>
+  <thead>
+    <tr>
+      <th>content</th>
+      <th>Status</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each comments}}
+    <tr>
+      <th>{{body}}</th>
+      <td>{{user}}</td>
+      <td>
+        <form action="/admin/comments/approve-comment" method="post">
+          <input type="hidden" name="id" value="{{id}}">
+          <input type="hidden" name="user" value="{{#if approveComment}} hide {{else}} show {{/if}}">
+        </form>
+      </td>
+      <td>{{generateDate date 'MMMM Do YYYY'}}</td>
+      <td>
+        <form action="/admin/comments/{{id}}?_method=DELETE" method="post">
+          <button type="submit">delete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

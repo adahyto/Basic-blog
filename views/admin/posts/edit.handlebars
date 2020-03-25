@@ -1,0 +1,13 @@
+<h2>edit post</h2>
+<form action="/admin/posts/edit/{{post.id}}?_method=PUT" method="post">
+    <input required name="title" type="text" id="title" value="{{post.title}}">
+
+    <label for="allowComments">
+        <input name="allowComments" type="checkbox" {{#if post.allowComments}} checked="checked" {{/if}}
+            id="allowComments">
+        Allow Comments
+    </label>
+    <textarea required name="short" id="short">{{post.short}}</textarea>
+    <textarea required name="body" id="body">{{post.body}}</textarea>
+    <button type="submit">update</button>
+</form>
