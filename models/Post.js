@@ -33,6 +33,9 @@ const PostSchema = new Schema({
   file: {
     type: String
   },
+  imgAlt: {
+    type: String
+  },
   comments: [{
     type: Schema.Types.ObjectId,
     ref: 'comments'

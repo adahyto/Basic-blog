@@ -12,6 +12,7 @@ router.all('/*', userAuthenticated, (req, res, next) => {
 
 router.get('/', (req, res) => {
   Post.find({})
+    .lean()
     .then(posts => {
       res.render('admin/posts', { posts });
     });
@@ -43,7 +44,8 @@ router.post('/create', (req, res) => {
     allowComments: allowComments,
     short: req.body.short,
     body: req.body.body,
-    file: filename
+    file: filename,
+    imgAlt: req.body.imageAlt
   });
   newPost.save()
     .then(savedPost => {
@@ -55,10 +57,12 @@ router.post('/create', (req, res) => {
 
 router.get('/edit/:id', (req, res) => {
   Post.findOne({ _id: req.params.id })
+    .lean()
     .then(post => {
       res.render('admin/posts/edit', { post });
     });
 });
+
 router.put('/edit/:id', (req, res) => {
   Post.findOne({ _id: req.params.id })
     .then(post => {

@@ -1,27 +1,23 @@
 <h2>{{post.title}}</h2>
 <img style="width:355px;" src="/uploads/{{post.file}}" alt="">
-<p>{{post.short}}</p>
-<hr>
 <p>{{post.body}}</p>
 <hr>
-{{#each post.comments}}
-
-<i>
-  author: <strong>{{user}}</strong>, date: {{generateDate date 'MMMM Do YYYY'}}
-</i>
-<p>{{body}}</p>
-
-{{/each}}
-{{#if user}}
 {{#if post.allowComments}}
-<label for="">leave a comment:</label>
-<form action="/admin/comments" method="post">
-  <label for="comment">Leave a Comment:</h5>
-    <textarea name="body" id="comment" rows="3"></textarea>
-    <input type="hidden" name="id" value="{{post.id}}">
-    <button type="submit">submit</button>
+<form action="/comment" method="post">
+  <label for="comment">Leave a Comment:</label>
+  <textarea name="body" id="comment" rows="3"></textarea>
+  <input type="text" name="user">
+  <input type="hidden" name="id" value="{{post._id}}">
+  <button type="submit">submit</button>
 </form>
-{{else}}
-<i>comments not allowed for this post</i>
+{{#if post.comments}}
+<ul>
+  {{#each post.comments}}
+  <li>
+    <i><strong>{{user}}</strong>, {{generateDate date 'DD/MM/YYYY'}}</i>
+    <p>{{body}}</p>
+  </li>
+  {{/each}}
+</ul>
 {{/if}}
 {{/if}}

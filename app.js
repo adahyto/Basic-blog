@@ -48,15 +48,17 @@ app.use((req, res, next) => {
 });
 
 const home = require('./routes/home/index');
-// const comment = require('./routes/home/comments');
+const comment = require('./routes/home/comments');
 const admin = require('./routes/admin/index');
 const posts = require('./routes/admin/posts');
 const comments = require('./routes/admin/comments');
+const register = require('./routes/admin/register');
 app.use('/', home);
-// app.use('/comment', comment);
+app.use('/comment', comment);
 app.use('/admin', admin);
 app.use('/admin/posts', posts);
 app.use('/admin/comments', comments);
+app.use('/admin/register', register);
 
 // enjoy
 app.listen(port, () => {

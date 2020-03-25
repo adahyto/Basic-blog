@@ -11,6 +11,7 @@ router.all('/*', userAuthenticated, (req, res, next) => {
 
 router.get('/', (req, res) => {
   Comment.find()
+    .lean()
     .then(comments => {
       res.render('admin/comments', { comments });
     });
@@ -28,7 +29,7 @@ router.delete('/:id', (req, res) => {
 router.post('/approve-comment', (req, res) => {
   Comment.findByIdAndUpdate(req.body.id, { $set: { approveComment: req.body.approveComment } }, (err, result) => {
     if (err) return err;
-    res.send(result);
+    res.redirect('/admin/comments');
   });
 });
 

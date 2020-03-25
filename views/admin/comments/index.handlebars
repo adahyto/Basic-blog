@@ -2,6 +2,7 @@
 <table>
   <thead>
     <tr>
+      <th>author</th>
       <th>content</th>
       <th>Status</th>
       <th>Date</th>
@@ -10,12 +11,13 @@
   <tbody>
     {{#each comments}}
     <tr>
-      <th>{{body}}</th>
       <td>{{user}}</td>
+      <th>{{body}}</th>
       <td>
         <form action="/admin/comments/approve-comment" method="post">
-          <input type="hidden" name="id" value="{{id}}">
-          <input type="hidden" name="user" value="{{#if approveComment}} hide {{else}} show {{/if}}">
+          <input type="hidden" name="id" value="{{_id}}">
+          <input type="hidden" name="approveComment" value={{#if approveComment}} false {{else}} true {{/if}}>
+          <button type="submit">{{#if approveComment}} hide {{else}} show {{/if}}</button>
         </form>
       </td>
       <td>{{generateDate date 'MMMM Do YYYY'}}</td>

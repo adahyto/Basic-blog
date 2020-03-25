@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
     .skip((perPage * page) - perPage)
     .limit(perPage)
     .populate('user')
+    .lean()
     .then(posts => {
       Post.count().then(postCount => {
         res.render('home/index', {
@@ -31,8 +32,9 @@ router.get('/', (req, res) => {
 
 router.get('/post/:slug', (req, res) => {
   Post.findOne({ slug: req.params.slug })
-    .populate({ path: 'comments', match: { approveComment: true }, populate: { path: 'user', model: 'users' } })
+    .populate({ path: 'comments', match: { approveComment: true }, })
     .populate('user')
+    .lean()
     .then(post => {
       res.render('home/post', { post });
     });
@@ -89,56 +91,6 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res) => {
   req.logOut();
   res.redirect('/');
-});
-
-router.get('/register', (req, res) => {
-  res.render('home/register');
-});
-router.post('/register', (req, res) => {
-  let errors = [];
-  if (!req.body.nickName) {
-    errors.push({ message: 'please add a nickName' });
-  }
-  if (!req.body.email) {
-    errors.push({ message: 'please add an email' });
-  }
-  if (!req.body.password) {
-    errors.push({ message: 'enter your password' });
-  }
-  if (!req.body.passwordConfirm) {
-    errors.push({ message: 'repeat your password' });
-  }
-  if (req.body.password !== req.body.passwordConfirm) {
-    errors.push({ message: 'please match password' });
-  }
-  if (errors.length > 0) {
-    res.render('home/register', {
-      errors: errors,
-      nickName: req.body.nickName,
-      email: req.body.email,
-    });
-  } else {
-    User.findOne({ email: req.body.email })
-      .then(user => {
-        if (!user) {
-          const newUser = new User({
-            nickName: req.body.nickName,
-            email: req.body.email,
-            password: req.body.password
-          });
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
-              newUser.password = hash;
-              newUser.save().then(savedUser => {
-                res.redirect('/login');
-              });
-            });
-          });
-        } else {
-          res.redirect('/register');
-        }
-      });
-  }
 });
 
 module.exports = router;

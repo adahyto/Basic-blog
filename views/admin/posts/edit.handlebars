@@ -1,7 +1,9 @@
 <h2>edit post</h2>
-<form action="/admin/posts/edit/{{post.id}}?_method=PUT" method="post">
+<form action="/admin/posts/edit/{{post._id}}?_method=PUT" method="post">
     <input required name="title" type="text" id="title" value="{{post.title}}">
-
+    <label for="file">File upload</label>
+    <input type="file" name="file">
+    <input name="imgAlt" type="text" id="imgAlt" placeholder="image alt">
     <label for="allowComments">
         <input name="allowComments" type="checkbox" {{#if post.allowComments}} checked="checked" {{/if}}
             id="allowComments">
