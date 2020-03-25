@@ -12,7 +12,7 @@ router.all('/*', (req, res, next) => {
 });
 
 router.get('/', (req, res) => {
-  const perPage = 8;
+  const perPage = 5;
   const page = req.query.page || 1;
   Post.find({})
     .skip((perPage * page) - perPage)
@@ -40,10 +40,23 @@ router.get('/post/:slug', (req, res) => {
     });
 });
 
-router.get('/users', (req, res) => {
-  User.find({})
-    .then(users => {
-      res.render('home/users', { users });
+
+router.get('/tag/:tag', (req, res) => {
+  const perPage = 5;
+  const page = req.query.page || 1;
+  Post.find({categories: req.params.tag})
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    .populate('user')
+    .lean()
+    .then(posts => {
+      Post.count().then(postCount => {
+        res.render('home/index', {
+          posts,
+          current: parseInt(page),
+          pages: Math.ceil(postCount / perPage)
+        });
+      });
     });
 });
 

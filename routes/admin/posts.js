@@ -30,8 +30,7 @@ router.post('/create', (req, res) => {
     file.mv(`${__dirname}/../../public/uploads/${filename}`, (err) => {
       if (err) throw err;
     });
-  } else { console.log('empty'); }
-  console.log(req.files);
+  }
   let allowComments = true;
   if (req.body.allowComments) {
     allowComments = true;
@@ -44,6 +43,7 @@ router.post('/create', (req, res) => {
     allowComments: allowComments,
     short: req.body.short,
     body: req.body.body,
+    tags: req.body.tags.split(","),
     file: filename,
     imgAlt: req.body.imageAlt
   });
@@ -76,6 +76,7 @@ router.put('/edit/:id', (req, res) => {
       post.allowComments = allowComments;
       post.body = req.body.body;
       post.short = req.body.short;
+      post.tags = req.body.tags.split(",");
       if (!isEmpty(req.files)) {
         let file = req.files.file;
         filename = Date.now() + '-' + file.name;

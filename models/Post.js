@@ -30,6 +30,9 @@ const PostSchema = new Schema({
     type: String,
     required: true
   },
+  tags: {
+    type: [String]
+  },
   file: {
     type: String
   },

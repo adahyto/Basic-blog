@@ -19,7 +19,7 @@ mongoose.connect(mongoDbUrl)
 
 app.use(express.static(path.join(__dirname, 'public')));
 const { select, generateDate, paginate } = require('./helpers/handlebars-helpers');
-app.engine('handlebars', handles({ defaultLayout: 'home', helpers: { generateDate: generateDate, paginate: paginate } }));
+app.engine('handlebars', handles({ defaultLayout: 'home', helpers: { generateDate, paginate } }));
 app.set('view engine', 'handlebars');
 app.use(upload());
 
