@@ -25,6 +25,7 @@
     "mongoose-url-slugs": "^1.0.2",
     "nodemon": "^1.14.12",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "showdown": "^1.9.1"
   }
 }

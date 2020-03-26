@@ -5,6 +5,9 @@ const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const showdown = require('showdown');
+
+converter = new showdown.Converter();
 
 router.all('/*', (req, res, next) => {
   req.app.locals.layout = 'home';
@@ -36,15 +39,14 @@ router.get('/post/:slug', (req, res) => {
     .populate('user')
     .lean()
     .then(post => {
-      res.render('home/post', { post });
+      res.render('home/post', { post: { ...post, body: converter.makeHtml(post.body) } });
     });
 });
-
 
 router.get('/tag/:tag', (req, res) => {
   const perPage = 5;
   const page = req.query.page || 1;
-  Post.find({categories: req.params.tag})
+  Post.find({ tags: req.params.tag })
     .skip((perPage * page) - perPage)
     .limit(perPage)
     .populate('user')

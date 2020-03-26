@@ -1,12 +1,16 @@
 {{#each posts}}
 <article>
   <a href="/post/{{slug}}">
-    <img style="width:155px;" src="/uploads/{{file}}" alt="{{imgAlt}}">
     <h3>{{title}}</h3>
   </a>
   <i><small>posted on: {{generateDate date 'DD/MM/YYYY'}}</small></i>
-  <p>{{short}}</p>
-  <a href="/post/{{slug}}"><i>Read more &rarr;</i></a>
+  <p>
+    {{short}}
+    <a href="/post/{{slug}}"><i>more &rarr;</i></a>
+  </p>
+  {{#each tags}}
+  <a href="/tag/{{this}}"><i>#{{this}}</i></a>
+  {{/each}}
 </article>
 {{/each}}
 <ul>

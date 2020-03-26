@@ -1,6 +1,6 @@
 <h2>{{post.title}}</h2>
-<img style="width:355px;" src="/uploads/{{post.file}}" alt="">
-<p>{{post.body}}</p>
+<img src="/uploads/{{post.file}}" alt="">
+{{{post.body}}}
 <hr>
 {{#if post.allowComments}}
 <form action="/comment" method="post">
